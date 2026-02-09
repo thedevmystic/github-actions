@@ -2,10 +2,11 @@
 
 All notable changes to this project will be documented in this file.
 
-## [Unreleased]
+## [0.1.0] - 2026-02-10
 
 ### Added
 
+- Pre commit action and tests.
 - Dependabot, mergify, and stale bot configuration.
 - Pre-commit configuration.
 - Changelog file.
