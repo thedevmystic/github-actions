@@ -41,8 +41,6 @@ updates:
     commit-message:
       prefix: "fix(deps)"
       include: "scope"
-    reviewers:
-      - "thedevmystic"
 
   # Maintain GitHub Actions
   - package-ecosystem: "github-actions"
@@ -60,8 +58,6 @@ updates:
     commit-message:
       prefix: "fix(deps)"
       include: "scope"
-    reviewers:
-      - "thedevmystic"
 
   # Maintain NPM
   - package-ecosystem: "npm"
@@ -75,10 +71,8 @@ updates:
         applies-to: version-updates
         patterns:
           - "*"
-    labels: 
+    labels:
       - "dependencies"
     commit-message:
       prefix: "fix(deps)"
       include: "scope"
-    reviewers:
-      - "thedevmystic"
