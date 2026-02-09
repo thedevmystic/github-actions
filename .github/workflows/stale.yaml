@@ -45,8 +45,8 @@ jobs:
           stale-issue-label: "stale"
           exempt-issue-labels: "important,security"
           stale-issue-message: |
-            Hi there! 👋 This issue hasn't seen any activity lately. 
-            We're marking it as stale to help us keep track of what's 
+            Hi there! 👋 This issue hasn't seen any activity lately.
+            We're marking it as stale to help us keep track of what's
             currently being worked on. If you still think this needs
             attention, just drop a comment and we’ll keep it alive!
             Otherwise it'll be closed after 7 days.
@@ -62,8 +62,8 @@ jobs:
           stale-pr-label: "stale"
           exempt-pr-labels: "important,security,wip"
           stale-pr-message: |
-            Hi there! 👋 This PR hasn't seen any activity lately. 
-            We're marking it as stale to help us keep track of what's 
+            Hi there! 👋 This PR hasn't seen any activity lately.
+            We're marking it as stale to help us keep track of what's
             currently being worked on. If you still think this needs
             attention, just drop a comment and we’ll keep it alive!
             We know you have worked on this, so we're not going to

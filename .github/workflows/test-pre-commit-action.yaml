@@ -38,6 +38,6 @@ jobs:
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v6
-      
+
       - name: Test Pre Commit Action
         uses: thedevmystic/github-actions/pre-commit@pre-commit

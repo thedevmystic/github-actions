@@ -75,7 +75,7 @@ updates:
         applies-to: version-updates
         patterns:
           - "*"
-    labels: 
+    labels:
       - "dependencies"
     commit-message:
       prefix: "fix(deps)"
