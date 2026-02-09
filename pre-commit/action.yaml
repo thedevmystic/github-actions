@@ -48,11 +48,11 @@ runs:
         python-version: ${{ inputs.python-version }}
 
     - name: Set pre-commit cache
-      if: ${{ inputs.is_cache == "true" }}
+      if: inputs.is_cache == 'true'
       uses: actions/cache@v4
       with:
         path: ${{ github.workspace }}/.cache/pre-commit
-        key: pre-commit-${{ runner.os }}-${{ hashFiles(".pre-commit-config.yaml") }}
+        key: pre-commit-${{ runner.os }}-${{ hashFiles('.pre-commit-config.yaml') }}
         restore-keys: |
           pre-commit-${{ runner.os }}-
 
