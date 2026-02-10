@@ -21,8 +21,8 @@
     alt="License: Apache 2.0"
   />
   <img
-    src="https://img.shields.io/badge/Ver_0.0.1-007acc?style=flat-square"
-    alt="Version: 0.0.1"
+    src="https://img.shields.io/badge/Ver_0.2.0-007acc?style=flat-square"
+    alt="Version: 0.2.0"
   />
   <!-- OS Support -->
   <br />
@@ -85,7 +85,7 @@
 
 # About the Project
 
-> A consolidated group of github actions for Mystic Framework.
+> A consolidated group of GitHub actions for Mystic Framework.
 
 ## Introduction
 
@@ -105,9 +105,9 @@ checks for languages like `C++` and `Python`, linting, `pre-commit` checks and o
 
 - [x] Initial Commit
 
-- [ ] Pre Commit Hooks
+- [x] Pre Commit Hooks
 
-- [ ] C++ Compatibility Check
+- [x] C++ Compatibility Check
 
 - [ ] C++ Linting Checks
 
