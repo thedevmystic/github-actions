@@ -30,8 +30,12 @@ inputs:
     description: "Version of Python to use"
     required: false
     default: "3.x"
-  is_cache:
+  use_cache:
     description: "Enable or disable caching of pre-commit hooks"
+    required: false
+    default: "true"
+  use_cppcheck:
+    deacription: "Whether to use cppcheck or not."
     required: false
     default: "true"
   args:
@@ -47,8 +51,15 @@ runs:
       with:
         python-version: ${{ inputs.python-version }}
 
+    - name: Set up Cppcheck
+      if: inputs.use_cppcheck == 'true'
+      shell: bash
+      run: |
+        sudo apt-get -qq update
+        sudo apt-get install -qq -y cppcheck
+
     - name: Set pre-commit cache
-      if: inputs.is_cache == 'true'
+      if: inputs.use_cache == 'true'
       uses: actions/cache@v4
       with:
         path: ${{ github.workspace }}/.cache/pre-commit
