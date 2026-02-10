@@ -44,5 +44,5 @@ jobs:
         uses: thedevmystic/github-actions/cpp-compatibility-check@cpp-compatibility-check
         with:
           os: "linux"
-          compiler: "gcc"
+          compiler: "g++"
           cmake_location: "./dummy_cpp_project/"
