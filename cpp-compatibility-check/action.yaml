@@ -65,7 +65,7 @@ runs:
         # Convert input to lowercase for comparison
         INPUT_OS=$(echo "${{ inputs.os }}" | tr '[:upper:]' '[:lower:]')
         RUNNER_OS_LOWER=$(echo "${{ runner.os }}" | tr '[:upper:]' '[:lower:]')
-        
+
         if [[ "$RUNNER_OS_LOWER" == *"$INPUT_OS"* ]]; then
           echo "Success: Runner OS ($RUNNER_OS_LOWER) matches Input OS ($INPUT_OS)"
         else
@@ -77,7 +77,7 @@ runs:
       if: inputs.install_command != ''
       shell: bash
       run: ${{ inputs.install_command }}
-      
+
     - name: Configure CMake
       shell: bash
       run: |
