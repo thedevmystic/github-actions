@@ -1,0 +1,96 @@
+# -----------------------------------------------------------------------------
+# Copyright 2026-present Suryansh Singh
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     https://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+# -----------------------------------------------------------------------------
+# @path [ROOT]/cpp-compatibility-check/action.yaml
+# @file action.yaml
+# @brief C++ compatibility check composite action.
+#
+# @author thedevmystic (Surya) <thedevmystic@gmail.com>
+# @copyright 2026-present Suryansh Singh Apache-2.0 License
+#
+# SPDX-FileCopyrightText: 2026-present Suryansh Singh
+# SPDX-License-Identifier: Apache-2.0
+# -----------------------------------------------------------------------------
+
+name: "C++ Compatibility Check"
+description: "Compiles C++ program with CMake and runs the tests."
+inputs:
+  os:
+    description: "OS to run the compatibility check."
+    required: false
+    default: "linux"
+  compiler:
+    description: "Compiler to run the compatibility check."
+    required: false
+    default: "gcc"
+  install_command:
+    description: "Install command to run."
+    required: false
+    default: ""
+  build_type:
+    description: "Build type of the project"
+    required: false
+    default: "Release"
+  cmake_location:
+    description: "Where CMakeLists.txt is located."
+    required: false
+    default: "." # Defaults to find at root
+  additional_cmake_args:
+    description: "Additional CMake Arguments."
+    required: false
+    default: ""
+  run_tests:
+    description: "Whether to run tests or not."
+    required: false
+    default: "true"
+
+runs:
+  using: "composite"
+  steps:
+    - name: Check OS Compatibility
+      shell: bash
+      run: |
+        echo "Validating Runner OS..."
+        # Convert input to lowercase for comparison
+        INPUT_OS=$(echo "${{ inputs.os }}" | tr '[:upper:]' '[:lower:]')
+        RUNNER_OS_LOWER=$(echo "${{ runner.os }}" | tr '[:upper:]' '[:lower:]')
+        
+        if [[ "$RUNNER_OS_LOWER" == *"$INPUT_OS"* ]]; then
+          echo "Success: Runner OS ($RUNNER_OS_LOWER) matches Input OS ($INPUT_OS)"
+        else
+          echo "Error: OS Mismatch. Input says $INPUT_OS but Runner is $RUNNER_OS_LOWER"
+          exit 1
+        fi
+
+    - name: Run install command
+      if: inputs.install_command != ''
+      shell: bash
+      run: ${{ inputs.install_command }}
+      
+    - name: Configure CMake
+      shell: bash
+      run: |
+        cmake -S ${{ inputs.cmake_location }} -B build \
+          -DCMAKE_CXX_COMPILER=${{ inputs.compiler }} \
+          -DCMAKE_BUILD_TYPE=${{ inputs.build_type }} \
+          ${{ inputs.additional_cmake_args }}
+
+    - name: Build
+      shell: bash
+      run: cmake --build build --config ${{ inputs.build_type }}
+
+    - name: Test
+      if: inputs.run_tests == 'true'
+      shell: bash
+      run: ctest --output-on-failure --test-dir build -C ${{ inputs.build_type }}
