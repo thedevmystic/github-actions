@@ -41,7 +41,7 @@ jobs:
         uses: actions/checkout@v6
 
       - name: Test C++ Compatibility Check Action
-        uses: thedevmystic/github-actions/cpp-compatibility-check@cpp-compatibility-check
+        uses: thedevmystic/github-actions/cpp-compatibility-check@main
         with:
           os: "linux"
           compiler: "g++"
