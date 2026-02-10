@@ -60,7 +60,7 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 
 # Project information
 message(STATUS "----------------------------------------")
-message(STATUS "mystic-params-gen - Version ${PROJECT_VERSION}")
+message(STATUS "dummy-cpp-project - Version ${PROJECT_VERSION}")
 message(STATUS "CMake Version: ${CMAKE_VERSION}")
 message(STATUS "C++ Standard: C++${CMAKE_CXX_STANDARD}")
 message(STATUS "----------------------------------------")
