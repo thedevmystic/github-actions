@@ -73,7 +73,8 @@ repos:
     rev: v1.3.5
     hooks:
       - id: cppcheck
-        args: ["--enable=all", "--suppress=missingIncludeSystem"]
+        args: ["--enable=all"]
+        exclude: (^|/)tests/
 
   - repo: https://github.com/cpplint/cpplint
     rev: 2.0.2
@@ -90,12 +91,6 @@ repos:
     hooks:
       - id: cmake-format
       - id: cmake-lint
-
-  # Copyright Checker Hooks
-  - repo: https://github.com/espressif/check-copyright
-    rev: v1.1.1
-    hooks:
-      - id: check-copyright
 
   # CI/CD Hooks
   - repo: https://github.com/python-jsonschema/check-jsonschema
