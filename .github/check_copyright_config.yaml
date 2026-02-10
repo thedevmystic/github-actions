@@ -1,0 +1,64 @@
+# ------------------------------------------------------------------------------------------------------
+# Copyright 2025-present Suryansh Singh
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+# https://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+# ------------------------------------------------------------------------------------------------------
+# @path [ROOT]/.github/check_copyright_config.yaml
+# @file check_copyright_config.yaml
+# @description WRITE DESCRIPTION YOU DUMBASS
+#
+# @author thedevmystic (Surya)
+# @copyright 2025-present Suryansh Singh Apache-2.0 License
+#
+# SPDX-FileCopyrightText: 2025-present Suryansh Singh
+# SPDX-License-Identifier: Apache-2.0
+# ------------------------------------------------------------------------------------------------------
+
+# Files to exclude from copyright checks
+ignore_files:
+  - "VERSION"
+  - ".*\\.json"
+  - ".*\\.md"
+  - "third_party/.*"
+
+# Patterns to identify the copyright line
+copyright_header_pattern: 'Copyright (?:202[5-6]-present) Suryansh Singh'
+
+licenses:
+  - name: Apache-2.0
+    template: |
+      Copyright {year}-present Suryansh Singh
+      Licensed under the Apache License, Version 2.0 (the "License");
+      you may not use this file except in compliance with the License.
+      You may obtain a copy of the License at
+
+          https://www.apache.org/licenses/LICENSE-2.0
+
+      Unless required by applicable law or agreed to in writing, software
+      distributed under the License is distributed on an "AS IS" BASIS,
+      WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+      See the License for the specific language governing permissions and
+      limitations under the License.
+
+      SPDX-FileCopyrightText: {year}-present Suryansh Singh
+      SPDX-License-Identifier: Apache-2.0
+
+# Language-specific comment styles
+comment_styles:
+  - extensions: [".h", ".hpp", ".cpp", ".c"]
+    style:
+      block_start: "/**"
+      line_prefix: " * "
+      block_end: " */"
+  - extensions: [".py", ".yaml", ".yml", "CMakeLists.txt", ".cmake"]
+    style:
+      line_prefix: "# "
