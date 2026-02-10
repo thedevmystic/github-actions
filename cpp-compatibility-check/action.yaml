@@ -33,7 +33,7 @@ inputs:
   compiler:
     description: "Compiler to run the compatibility check."
     required: false
-    default: "gcc"
+    default: "g++"
   install_command:
     description: "Install command to run."
     required: false

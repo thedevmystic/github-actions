@@ -49,7 +49,7 @@ cmake_minimum_required(VERSION 3.30)
 file(READ "${CMAKE_SOURCE_DIR}/VERSION" RAW_VERSION)
 string(STRIP "${RAW_VERSION}" PROJECT_VERSION)
 project(
-  mystic_params_gen
+  dummy_cpp_project
   VERSION ${PROJECT_VERSION}
   LANGUAGES CXX)
 
@@ -70,7 +70,7 @@ include_directories("${CMAKE_SOURCE_DIR}/include")
 include_directories("${CMAKE_SOURCE_DIR}/third_party")
 
 # Executable target
-add_executable(mystic_params_gen src/test_dummy.cpp src/main.cpp)
+add_executable(dummy_cpp_project src/test_dummy.cpp src/main.cpp)
 
 # Tests
 include(FetchContent)
@@ -87,8 +87,8 @@ FetchContent_MakeAvailable(googletest)
 
 enable_testing()
 
-add_executable(mystic_params_gen_tests src/test_dummy.cpp tests/test_main.cpp)
-target_link_libraries(mystic_params_gen_tests GTest::gtest_main)
+add_executable(dummy_cpp_project_tests src/test_dummy.cpp tests/test_main.cpp)
+target_link_libraries(dummy_cpp_project_tests GTest::gtest_main)
 
 include(GoogleTest)
-gtest_discover_tests(mystic_params_gen_tests)
+gtest_discover_tests(dummy_cpp_project_tests)
