@@ -1,5 +1,5 @@
 /**
- * Copyright 2025-present Suryansh Singh
+ * Copyright 2026-present Suryansh Singh
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -19,9 +19,9 @@
  * @description Test dummy header file declaration.
  *
  * @author thedevmystic (Surya)
- * @copyright 2025-present Suryansh Singh Apache-2.0 License
+ * @copyright 2026-present Suryansh Singh Apache-2.0 License
  *
- * SPDX-FileCopyrightText: 2025-present Suryansh Singh
+ * SPDX-FileCopyrightText: 2026-present Suryansh Singh
  * SPDX-License-Identifier: Apache-2.0
  */
 
