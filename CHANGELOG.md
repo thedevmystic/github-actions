@@ -15,7 +15,7 @@ All notable changes to this project will be documented in this file.
 
 ### Fixed
 
-- Cppcheck missing installtion in pre-commit action.
+- Cppcheck missing installation in pre-commit action.
 - Cppcheck invalid argument.
 - Cppcheck now excludes tests directory.
 
