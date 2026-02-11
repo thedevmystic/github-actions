@@ -27,11 +27,11 @@ name: "Pre Commit"
 description: "Runs pre-commit with the given inputs."
 inputs:
   python-version:
-    description: "Version of Python to use"
+    description: "Version of Python to use."
     required: false
     default: "3.x"
   use_cache:
-    description: "Enable or disable caching of pre-commit hooks"
+    description: "Enable or disable caching of pre-commit hooks."
     required: false
     default: "true"
   use_cppcheck:
@@ -39,7 +39,7 @@ inputs:
     required: false
     default: "true"
   args:
-    description: "Arguments given to pre-commit"
+    description: "Arguments given to pre-commit."
     required: false
     default: "--all-files"
 
