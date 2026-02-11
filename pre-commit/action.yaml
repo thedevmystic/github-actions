@@ -53,39 +53,12 @@ runs:
         cache: "pip"
         cache-dependency-path: ".pre-commit-config.yaml"
 
-    - name: Step up Cppcheck cache
-      id: cache-cppcheck
-      if: inputs.use_cppcheck == 'true' && inputs.use_cache == 'true'
-      uses: actions/cache@v4
-      with:
-        path: ${{ github.workspace }}/.cache/cppcheck
-        key: cppcheck-${{ runner.os }}-v2.13.0
-
     - name: Set up Cppcheck
-      if: inputs.use_cppcheck == 'true' && steps.cache-cppcheck.outputs.cache-hit != 'true'
-      shell: bash
-      run: |
-        mkdir -p ${{ github.workspace }}/.cache/cppcheck
-        sudo apt-get -qq update
-
-        # Set up temp directory
-        temp_dir=$(mktemp -d) && cd "$temp_dir"
-
-        # Download and extract Cppcheck
-        sudo apt-get download -qq -y cppcheck
-        dpkg-deb -x cppcheck_*.deb ${{ github.workspace }}/.cache/cppcheck
-
-        # Cleanup
-        cd ${{ github.workspace }} && rm -rf "$temp_dir"
-
-
-    - name: Add Cppcheck to Path
       if: inputs.use_cppcheck == 'true'
       shell: bash
       run: |
-        if [ -d "${{ github.workspace }}/.cache/cppcheck/usr/bin" ]; then
-          echo "${{ github.workspace }}/.cache/cppcheck/usr/bin" >> $GITHUB_PATH
-        fi
+        sudo apt-get -qq update
+        sudo apt-get install -qq -y cppcheck
 
     - name: Set up pre-commit cache
       id: cache-pre-commit
