@@ -69,14 +69,14 @@ runs:
         sudo apt-get -qq update
 
         # Set up temp directory
-        temp_dir=$(mktemp -d) && cd temp_dir
+        temp_dir=$(mktemp -d) && cd "$temp_dir"
 
         # Download and extract Cppcheck
         sudo apt-get download -qq -y cppcheck
         dpkg-deb -x cppcheck_*.deb ${{ github.workspace }}/.cache/cppcheck
 
         # Cleanup
-        cd ${{ github.workspace }} && rm -rf temp_dir
+        cd ${{ github.workspace }} && rm -rf "$temp_dir"
 
 
     - name: Add Cppcheck to Path
