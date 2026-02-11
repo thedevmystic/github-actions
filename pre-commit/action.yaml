@@ -31,7 +31,7 @@ inputs:
     required: false
     default: "3.x"
   use_cache:
-    description: "Enable or disable caching of pre-commit hooks and cppcheck"
+    description: "Enable or disable caching of pre-commit hooks"
     required: false
     default: "true"
   use_cppcheck:
@@ -57,8 +57,10 @@ runs:
       if: inputs.use_cppcheck == 'true'
       shell: bash
       run: |
-        sudo apt-get -qq update
+        echo "Installing Cppcheck..."
+        sudo apt-get -qq -y update
         sudo apt-get install -qq -y cppcheck
+        echo "Cppcheck Installed."
 
     - name: Set up pre-commit cache
       id: cache-pre-commit
@@ -75,5 +77,7 @@ runs:
         PRE_COMMIT_HOME: ${{ github.workspace }}/.cache/pre-commit
       shell: bash
       run: |
+        echo "Running Pre Commit..."
         pip install pre-commit
         pre-commit run ${{ inputs.args }}
+        echo "All Tests Passed!"

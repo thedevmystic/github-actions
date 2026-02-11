@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file.
 
+## [UNRELEASED]
+
+### Added
+
+- Better cache support in pre-commit action.
+- README for Dummy C++ Project.
+- Status logging in pre-commit action.
+
+### Fixed
+
+- Typos in pre-commit action.
+
 ## [0.2.0] - 2026-02-11
 
 ### Added
