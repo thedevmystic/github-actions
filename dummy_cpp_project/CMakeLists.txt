@@ -41,8 +41,6 @@
 
 # cmake-format: on
 
-# TODO: Will be rewritten.
-
 cmake_minimum_required(VERSION 3.30)
 
 # Read version from VERSION file
