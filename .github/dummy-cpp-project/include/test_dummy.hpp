@@ -25,8 +25,8 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-#ifndef DUMMY_CPP_PROJECT_INCLUDE_TEST_DUMMY_HPP_
-#define DUMMY_CPP_PROJECT_INCLUDE_TEST_DUMMY_HPP_
+#ifndef _GITHUB_DUMMY_CPP_PROJECT_INCLUDE_TEST_DUMMY_HPP_
+#define _GITHUB_DUMMY_CPP_PROJECT_INCLUDE_TEST_DUMMY_HPP_
 
 int return_forty_two();
 
@@ -34,4 +34,4 @@ bool return_true();
 
 bool return_false();
 
-#endif  // DUMMY_CPP_PROJECT_INCLUDE_TEST_DUMMY_HPP_
+#endif  // _GITHUB_DUMMY_CPP_PROJECT_INCLUDE_TEST_DUMMY_HPP_
