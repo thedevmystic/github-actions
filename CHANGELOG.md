@@ -13,6 +13,7 @@ All notable changes to this project will be documented in this file.
 ### Fixed
 
 - Typos in pre-commit action.
+- Move dummy C++ project to .github.
 
 ## [0.2.0] - 2026-02-11
 
