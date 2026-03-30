@@ -30,18 +30,30 @@ inputs:
     description: "Version of Python to use."
     required: false
     default: "3.x"
-  use_cache:
-    description: "Enable or disable caching of pre-commit hooks."
+  use-cache:
+    description: "Enable or disable caching of pre-commit hooks and cppcheck."
     required: false
     default: "true"
-  use_cppcheck:
+  use-cppcheck:
     description: "Whether to use cppcheck or not."
     required: false
     default: "true"
+  cppcheck-version:
+    description: "Cppcheck version used for pre-commit."
+    required: false
+    default: "2.13.0"
   args:
     description: "Arguments given to pre-commit."
     required: false
     default: "--all-files"
+
+env:
+  PYTHON_VERSION: ${{ inputs.python-version }}
+  PYTHON_CACHE_METHOD: ${{ inputs.use-cache == 'true' && 'pip' || '' }}
+  PYTHON_CACHE_DEPENDENCY: ".pre-commit-config.yaml"
+  CPPCHECK_VERSION: ${{ inputs.cppcheck-version }}
+  CPPCHECK_INSTALL_PATH: ${{ github.workspace }}/.cache/cppcheck
+  PRE_COMMIT_HOME: ${{ github.workspace }}/.cache/pre-commit
 
 runs:
   using: "composite"
@@ -49,35 +61,54 @@ runs:
     - name: Set up Python
       uses: actions/setup-python@v5
       with:
-        python-version: ${{ inputs.python-version }}
-        cache: "pip"
-        cache-dependency-path: ".pre-commit-config.yaml"
+        python-version: ${{ env.PYTHON_VERSION }}
+        cache: ${{ env.PYTHON_CACHE_METHOD }}
+        cache-dependency-path: ${{ env.PYTHON_CACHE_DEPENDENCY }}
+
+    - name: Set up Cppcheck cache
+      id: cache-cppcheck
+      if: ${{ inputs.use-cppcheck == 'true' && inputs.use-cache == 'true' }}
+      uses: actions/cache@v4
+      with:
+        path: ${{ env.CPPCHECK_INSTALL_PATH }}
+        key: cppcheck-${{ runner.os }}-${{ env.CPPCHECK_VERSION }}
 
     - name: Set up Cppcheck
-      if: inputs.use_cppcheck == 'true'
+      if: ${{ inputs.use-cppcheck == 'true' && steps.cache-cppcheck.outputs.cache-hit != 'true' }}
       shell: bash
       run: |
-        echo "Installing Cppcheck..."
+        echo "Building Cppcheck ${{ env.CPPCHECK_VERSION }}..."
         sudo apt-get -qq -y update
-        sudo apt-get install -qq -y cppcheck
-        echo "Cppcheck Installed."
+        sudo apt-get install -qq -y libpcre3-dev
+        wget -qO- https://github.com/danmar/cppcheck/archive/refs/tags/${{ env.CPPCHECK_VERSION }}.tar.gz \
+          | tar xz
+        cd cppcheck-${{ env.CPPCHECK_VERSION }}
+        make -j$(nproc) \
+          MATCHCOMPILER=yes \
+          FILESDIR=${{ env.CPPCHECK_INSTALL_PATH }}/share/cppcheck \
+          HAVE_RULES=yes \
+          install \
+          PREFIX=${{ env.CPPCHECK_INSTALL_PATH }}
+        echo "Cppcheck built."
+
+    - name: Add Cppcheck to PATH
+      if: ${{ inputs.use-cppcheck == 'true' }}
+      shell: bash
+      run: echo "${{ env.CPPCHECK_INSTALL_PATH }}/bin" >> $GITHUB_PATH
 
     - name: Set up pre-commit cache
       id: cache-pre-commit
-      if: inputs.use_cache == 'true'
+      if: ${{ inputs.use-cache == 'true' }}
       uses: actions/cache@v4
       with:
-        path: ${{ github.workspace }}/.cache/pre-commit
+        path: ${{ env.PRE_COMMIT_HOME }}
         key: pre-commit-${{ runner.os }}-${{ hashFiles('.pre-commit-config.yaml') }}
-        restore-keys: |
-          pre-commit-${{ runner.os }}-
+        restore-keys: pre-commit-${{ runner.os }}-
 
     - name: Run pre-commit
-      env:
-        PRE_COMMIT_HOME: ${{ github.workspace }}/.cache/pre-commit
       shell: bash
       run: |
-        echo "Running Pre Commit..."
+        echo "Running pre-commit..."
         pip install pre-commit
         pre-commit run ${{ inputs.args }}
-        echo "All Tests Passed!"
+        echo "All checks passed!"
