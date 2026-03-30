@@ -34,4 +34,4 @@ bool return_true();
 
 bool return_false();
 
-#endif // _GITHUB_DUMMY_CPP_PROJECT_INCLUDE_TEST_DUMMY_HPP_
+#endif  // _GITHUB_DUMMY_CPP_PROJECT_INCLUDE_TEST_DUMMY_HPP_
