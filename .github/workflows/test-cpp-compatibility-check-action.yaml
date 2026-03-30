@@ -45,4 +45,4 @@ jobs:
         with:
           os: "linux"
           compiler: "g++"
-          cmake_location: "./dummy_cpp_project/"
+          cmake_location: "./.github/dummy-cpp-project/"
