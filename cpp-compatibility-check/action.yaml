@@ -34,23 +34,23 @@ inputs:
     description: "Compiler to run the compatibility check."
     required: false
     default: "g++"
-  install_command:
+  install-command:
     description: "Install command to run."
     required: false
     default: ""
-  build_type:
+  build-type:
     description: "Build type of the project"
     required: false
     default: "Release"
-  cmake_location:
+  cmake-location:
     description: "Where CMakeLists.txt is located."
     required: false
     default: "." # Defaults to find at root
-  additional_cmake_args:
+  additional-cmake-args:
     description: "Additional CMake Arguments."
     required: false
     default: ""
-  run_tests:
+  run-tests:
     description: "Whether to run tests or not."
     required: false
     default: "true"
@@ -74,23 +74,23 @@ runs:
         fi
 
     - name: Run install command
-      if: inputs.install_command != ''
+      if: inputs.install-command != ''
       shell: bash
-      run: ${{ inputs.install_command }}
+      run: ${{ inputs.install-command }}
 
     - name: Configure CMake
       shell: bash
       run: |
-        cmake -S ${{ inputs.cmake_location }} -B build \
+        cmake -S ${{ inputs.cmake-location }} -B build \
           -DCMAKE_CXX_COMPILER=${{ inputs.compiler }} \
-          -DCMAKE_BUILD_TYPE=${{ inputs.build_type }} \
-          ${{ inputs.additional_cmake_args }}
+          -DCMAKE_BUILD_TYPE=${{ inputs.build-type }} \
+          ${{ inputs.additional-cmake-args }}
 
     - name: Build
       shell: bash
-      run: cmake --build build --config ${{ inputs.build_type }}
+      run: cmake --build build --config ${{ inputs.build-type }}
 
     - name: Test
-      if: inputs.run_tests == 'true'
+      if: inputs.run-tests == 'true'
       shell: bash
-      run: ctest --output-on-failure --test-dir build -C ${{ inputs.build_type }}
+      run: ctest --output-on-failure --test-dir build -C ${{ inputs.build-type }}

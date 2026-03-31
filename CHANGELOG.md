@@ -10,10 +10,15 @@ All notable changes to this project will be documented in this file.
 - README for Dummy C++ Project.
 - Status logging in pre-commit action.
 
+### Changed
+
+- Naming convention of variables in actions.
+
 ### Fixed
 
 - Typos in pre-commit action.
 - Move dummy C++ project to .github.
+- Fix libpcre caching issue.
 
 ## [0.2.0] - 2026-02-11
 
