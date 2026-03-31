@@ -81,6 +81,7 @@ runs:
           HAVE_RULES=yes \
           install \
           PREFIX=${{ github.workspace }}/.cache/cppcheck
+        mkdir -p ${{ github.workspace }}/.cache/cppcheck/lib
         cp /usr/lib/x86_64-linux-gnu/libpcre.so.3 ${{ github.workspace }}/.cache/cppcheck/lib/
         echo "Cppcheck built."
 
