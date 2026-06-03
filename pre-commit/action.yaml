@@ -31,17 +31,9 @@ inputs:
     required: false
     default: "3.x"
   use-cache:
-    description: "Enable or disable caching of pre-commit hooks and cppcheck."
+    description: "Enable or disable caching of pre-commit hooks."
     required: false
     default: "true"
-  use-cppcheck:
-    description: "Whether to use cppcheck or not."
-    required: false
-    default: "true"
-  cppcheck-version:
-    description: "Cppcheck version used for pre-commit."
-    required: false
-    default: "2.20.0"
   args:
     description: "Arguments given to pre-commit."
     required: false
@@ -56,41 +48,6 @@ runs:
         python-version: ${{ inputs.python-version }}
         cache: ${{ inputs.use-cache == 'true' && 'pip' || '' }}
         cache-dependency-path: ".pre-commit-config.yaml"
-
-    - name: Set up Cppcheck cache
-      id: cache-cppcheck
-      if: ${{ inputs.use-cppcheck == 'true' && inputs.use-cache == 'true' }}
-      uses: actions/cache@v4
-      with:
-        path: ${{ github.workspace }}/.cache/cppcheck
-        key: cppcheck-${{ runner.os }}-${{ inputs.cppcheck-version }}
-
-    - name: Set up Cppcheck
-      if: ${{ inputs.use-cppcheck == 'true' && steps.cache-cppcheck.outputs.cache-hit != 'true' }}
-      shell: bash
-      run: |
-        echo "Building Cppcheck ${{ inputs.cppcheck-version }}..."
-        sudo apt-get -qq -y update
-        sudo apt-get install -qq -y libpcre3-dev
-        wget -qO- https://github.com/danmar/cppcheck/archive/refs/tags/${{ inputs.cppcheck-version }}.tar.gz \
-          | tar xz
-        cd cppcheck-${{ inputs.cppcheck-version }}
-        make -j$(nproc) \
-          MATCHCOMPILER=yes \
-          FILESDIR=${{ github.workspace }}/.cache/cppcheck/share/cppcheck \
-          HAVE_RULES=yes \
-          install \
-          PREFIX=${{ github.workspace }}/.cache/cppcheck
-        mkdir -p ${{ github.workspace }}/.cache/cppcheck/lib
-        cp /usr/lib/x86_64-linux-gnu/libpcre.so.3 ${{ github.workspace }}/.cache/cppcheck/lib/
-        echo "Cppcheck built."
-
-    - name: Add Cppcheck to PATH
-      if: ${{ inputs.use-cppcheck == 'true' }}
-      shell: bash
-      run: |
-        echo "${{ github.workspace }}/.cache/cppcheck/bin" >> $GITHUB_PATH
-        echo "LD_LIBRARY_PATH=${{ github.workspace }}/.cache/cppcheck/lib:$LD_LIBRARY_PATH" >> $GITHUB_ENV
 
     - name: Set up pre-commit cache
       id: cache-pre-commit
