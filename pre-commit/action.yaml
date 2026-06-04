@@ -43,7 +43,7 @@ runs:
   using: "composite"
   steps:
     - name: Set up Python
-      uses: actions/setup-python@v5
+      uses: actions/setup-python@v6
       with:
         python-version: ${{ inputs.python-version }}
         cache: ${{ inputs.use-cache == 'true' && 'pip' || '' }}
@@ -52,7 +52,7 @@ runs:
     - name: Set up pre-commit cache
       id: cache-pre-commit
       if: ${{ inputs.use-cache == 'true' }}
-      uses: actions/cache@v4
+      uses: actions/cache@v5
       with:
         path: ${{ github.workspace }}/.cache/pre-commit
         key: pre-commit-${{ runner.os }}-${{ hashFiles('.pre-commit-config.yaml') }}
