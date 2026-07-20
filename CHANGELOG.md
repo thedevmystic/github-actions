@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [UNRELEASED]
+
+### Added
+
+- Code of Conduct (CoC).
+- Contributing Guidelines.
+
 ## [0.2.1] - 2026-03-31
 
 ### Added
